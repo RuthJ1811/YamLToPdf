@@ -1,0 +1,2458 @@
+openapi: 3.0.0
+info:
+  title: Peppo RewardX API
+  version: "1.0"
+  description: Peppo RewardX API
+  summary: Peppo RewardX API
+servers:
+  - url: https://dev-api.getwalkin.in/peppo-rewardx-dev/api
+    description: Develop
+paths:
+  /v1/campaign/campaigns:
+    post:
+      summary: Create Campaign
+      operationId: createCampaign
+      responses:
+        "200":
+          $ref: "#/components/responses/CampaignResponse"
+      requestBody:
+        $ref: "#/components/requestBodies/CreateCampaignInput"
+      description: "Campaign can either be scheduled or event triggered, based on the campaignTriggerType. If the campaignTriggerType is SCHEDULED, cron expression and campaignScheduleName is mandatory.
+      If the campaignTriggerType is EVENT, eventTypeId is mandatory."
+      tags:
+        - Campaign
+      security:
+        - Authorization: []
+    parameters: []
+
+  /v1/campaign/update-campaign/:campaignId:
+    put:
+      summary: Update Campaign
+      operationId: updateCampaign
+      responses:
+        "200":
+          $ref: "#/components/responses/CampaignResponse"
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateCampaignInput"
+      description: "Campaign can be updated only in DRAFT state. To update the status as DRAFT, use updateCampaignStatus API."
+      tags:
+        - Campaign
+      security:
+        - Authorization: []
+    parameters: []
+  
+  /v1/campaign/:campaignId/update-status:
+    put:
+      summary: Update Campaign Status
+      operationId: updateCampaignStatus
+      responses:
+        "200":
+          $ref: "#/components/responses/CampaignResponse"
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateCampaignStatusInput"
+      description: ""
+      tags:
+        - Campaign
+      security:
+        - Authorization: []
+    parameters: []
+  
+  /v1/campaign/:campaignId/update-schedule:
+    put:
+      summary: Update Campaign Schedule
+      operationId: updateCampaignSchedule
+      responses:
+        "200":
+          $ref: "#/components/responses/CampaignScheduleResponse"
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateCampaignScheduleInput"
+      description: "To update the cron expression for a Scheduled Campaign."
+      tags:
+        - Campaign
+      security:
+        - Authorization: []
+    parameters: []
+
+  /event-types:
+    post:
+      summary: Create Event Type
+      operationId: createEventType
+      responses:
+        "200":
+          $ref: "#/components/responses/EventTypeResponse"
+      requestBody:
+        $ref: "#/components/requestBodies/CreateEventTypeInput"
+      description: ""
+      tags:
+        - Event Type
+      security:
+        - Authorization: []
+    parameters: []
+
+  /update-event-type/:id:
+    post:
+      summary: Update Event Type
+      operationId: updateEventType
+      responses:
+        "200":
+          $ref: "#/components/responses/EventTypeResponse"
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateEventTypeInput"
+      description: ""
+      tags:
+        - Event Type
+      security:
+        - Authorization: []
+    parameters: []
+
+  /event-types/:id:
+    get:
+      summary: Get Event Type By ID
+      operationId: getEventTypeById
+      responses:
+        "200":
+          $ref: "#/components/responses/EventTypeResponse"
+      description: ""
+      tags:
+        - Event Type
+      security:
+        - Authorization: []
+    parameters: []
+
+  /record-event:
+    post:
+      summary: Record Event
+      operationId: recordEvent
+      responses:
+        "200":
+          $ref: "#/components/responses/RecordEventResponse"
+      requestBody:
+        $ref: "#/components/requestBodies/RecordEventInput"
+      description: ""
+      tags:
+        - Event
+      security:
+        - Authorization: []
+    parameters: []
+
+  /events:
+    post:
+      summary: Create Event
+      operationId: createEvent
+      responses:
+        "200":
+          $ref: "#/components/responses/EventResponse"
+      requestBody:
+        $ref: "#/components/requestBodies/CreateEventInput"
+      description: ""
+      tags:
+        - Event
+      security:
+        - Authorization: []
+    parameters: []
+
+  /update-event/:id:
+    post:
+      summary: Update Event
+      operationId: updateEvent
+      responses:
+        "200":
+          $ref: "#/components/responses/EventResponse"
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateEventInput"
+      description: ""
+      tags:
+        - Event
+      security:
+        - Authorization: []
+    parameters: []
+  
+  /events/:
+    get:
+      summary: Get Events
+      operationId: getEvents
+      responses:
+        "200":
+          $ref: "#/components/responses/GetEventsResponse"
+      description: ""
+      tags:
+        - Event
+      security:
+        - Authorization: []
+    parameters: []
+  
+  /events/:id:
+    get:
+      summary: Get Event By ID
+      operationId: getEventById
+      responses:
+        "200":
+          $ref: "#/components/responses/EventResponse"
+      description: ""
+      tags:
+        - Event
+      security:
+        - Authorization: []
+    parameters: []
+
+  /v1/collection-item/get-collection-items:
+    get:
+      summary: Get collection items
+      operationId: getCollectionItems
+      responses:
+        "200":
+          $ref: "#/components/responses/CollectionItemsResponse"
+      requestBody:
+        $ref: "#/components/requestBodies/GetCollectionItems"
+      description: ""
+      tags:
+        - Collection Item
+      security:
+        - Authorization: []
+    parameters: []
+
+  /v1/collection-item/get-collection-item/collectionItemId:
+    get:
+      summary: Get collection item by ID
+      operationId: getCollectionItemById
+      responses:
+        "200":
+          $ref: "#/components/responses/CollectionItem"
+      description: ""
+      tags:
+        - Collection Item
+      security:
+        - Authorization: []
+    parameters: []
+
+  /v1/collection-item/remove-collection-item/collectionId:
+    delete:
+      summary: Remove collection item
+      operationId: removeCollectionItem
+      responses:
+        "200":
+          $ref: "#/components/responses/RemoveCollectionItemResponse"
+      description: ""
+      tags:
+        - Collection Item
+      security:
+        - Authorization: []
+    parameters: []
+    
+  /v1/collections/create-collections:
+    post:
+      summary: Create collections
+      operationId: createCollections
+      responses:
+        "200":
+          $ref: "#/components/responses/CreateCollectionsResponse"
+      requestBody:
+        $ref: "#/components/requestBodies/CreateCollectionsInput"
+      description: ""
+      tags:
+        - Collections
+      security:
+        - Authorization: []
+    parameters: []
+  
+  /v1/collections/update-collections/collectionsId:
+    put:
+      summary: Update collections
+      operationId: updateCollections
+      responses:
+        "200":
+          $ref: "#/components/responses/CreateCollectionsResponse"
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateCollectionsInput"
+      description: ""
+      tags:
+        - Collections
+      security:
+        - Authorization: []
+    parameters: []
+
+  /get-customer-ledger:
+    get:
+      summary: Get customer ledger
+      operationId: getCustomerLedger
+      responses:
+        "200":
+          $ref: "#/components/responses/GetCustomerLedgerResponse"
+      requestBody:
+        $ref: "#/components/requestBodies/GetCustomerLedgerInput"
+      description: "Gets Customer Ledger details for given customer based on externalCustomerId. Customer Ledger result will be sorted based on the transaction date and sorting order can be controlled based on orderBy attribute."
+      tags:
+        - Loyalty ledger
+      security:
+        - Authorization: []
+    parameters: []
+
+  /earnable-burnable-points:
+    post:
+      summary: Earnable Burnable Points Query
+      operationId: earnableBurnablePointsQuery
+      responses:
+        "200":
+          $ref: "#/components/responses/EarnableBurnablePointsResponse"
+      requestBody:
+        $ref: "#/components/requestBodies/EarnableBurnablePointsInput"
+      description: "API to know earnable/burnable points for a specific customer’s order."
+      tags:
+        - Loyalty Transaction
+      security:
+        - Authorization: []
+    parameters: []
+
+  /get-customer-loyalty:
+    get:
+      summary: Get customer loyalty
+      operationId: getCustomerLoyalty
+      responses:
+        "200":
+          $ref: "#/components/responses/GetCustomerLoyaltyResponse"
+      requestBody:
+        $ref: "#/components/requestBodies/GetCustomerLoyaltyInput"
+      description: "Get Customer Loyalty shares details for a given customer based on externalCustomerID."
+      tags:
+        - Customer Loyalty
+      security:
+        - Authorization: []
+    parameters: []
+
+  /process-loyalty-redemption:
+    post:
+      summary: Process Loyalty Redemption
+      operationId: processLoyaltyRedemption
+      responses:
+        "200":
+          $ref: "#/components/responses/ProcessLoyaltyRedemptionResponse"
+      requestBody:
+        $ref: "#/components/requestBodies/ProcessLoyaltyRedemptionInput"
+      description: API to process redemption of the pointsbased on a transaction
+      tags:
+        - Loyalty Transaction
+      security:
+        - Authorization: []
+    parameters: []
+  
+  /v1/collections/fetch-collections-with-filters:
+    get:
+      summary: Fetch Collections With Filters
+      operationId: fetchCollectionsWithFilters
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/GetCollectionsByOrganizationIdOutput'
+      requestBody:
+      description: API to get collections belonging to a campaign
+      tags:
+        - Collections
+      security:
+        - Authorization: []
+    parameters:
+      - in: query
+        name: organizationId
+        description: "Id of the Organization."
+        required: false
+        schema:
+          type: stirng
+      - in: query
+        name: campaignId
+        description: "Campaign Id belonging to the organization"
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: status
+        description: Status of the collections required 
+        required: false
+        schema:
+          type: string
+
+  /v1/collections/get-collections-by-campaignId:
+    get:
+      summary: Get Collections By Campaign Id
+      operationId: getCollectionsByCampaignId
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/GetCollectionsByOrganizationIdOutput'
+      requestBody:
+      description: API to get collections belonging to a campaign
+      tags:
+        - Collections
+      security:
+        - Authorization: []
+    parameters: 
+      - in: query
+        name: campaignId
+        description: "Campaign Id belonging to the organization"
+        required: false
+        schema:
+          type: integer
+
+  /v1/collections/get-collection-by-collectionId:
+    get:
+      summary: Get Collections By Collection Id
+      operationId: getCollectionsByCollectionId
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collections'
+      requestBody:
+      description: API to get collections belonging to a campaign
+      tags:
+        - Collections
+      security:
+        - Authorization: []
+    parameters: 
+      - in: query
+        name: collectionId
+        description: "Id of the collection required"
+        required: false
+        schema:
+          type: string
+
+  /v1/collections/delete-collection:
+    delete:
+      summary: Delete Collections 
+      operationId: deleteCollection
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/DeleteCollectionResponse'
+      requestBody:
+      description: API to get collections belonging to a campaign
+      tags:
+        - Collections
+      security:
+        - Authorization: []
+    parameters:
+      - in: query
+        name: collectionId
+        description: "Id of the collection to be deleted"
+        required: false
+        schema:
+          type: string
+
+  /v1/collections/upload-collection:
+    post:
+      summary: Upload Collections from CSV
+      operationId: uploadCollections
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collections'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                # 'CollectionsCSV' will be the field name in this multipart request
+                CollectionsCSV:
+                  type: string
+                  format: binary
+      description: API to upload collections from a CSV file
+      tags:
+        - Collections
+      security:
+        - Authorization: []
+    parameters: []
+
+components:
+  schemas:
+    Campaign:
+      type: object
+      properties:
+        createdBy:
+          type: string
+        lastModifiedBy:
+          type: string
+        createdTime:
+          type: string
+        lastModifiedTime:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        startTime:
+          type: string
+        endTime:
+          type: string
+        organization:
+          $ref: "#/components/schemas/Organization"
+        application:
+          type: string
+        campaignType:
+          type: string
+        campaignTriggerType:
+          type: string
+        priority:
+          type: string
+        campaignStatus:
+          type: string
+        applicationMethod:
+          type: string
+        loyaltyTotals:
+          type: json
+        couponTotals:
+          type: json
+        referralTotals:
+          type: json
+        discountTotals:
+          type: json
+        group:
+          type: string
+        extend:
+          type: json
+        loyaltyProgramDetailId:
+          type: string
+        campaignSchedule:
+          $ref: "#/components/schemas/CampaignSchedule"
+        campaignEventTrigger:
+          $ref: "#/components/schemas/CampaignEventTrigger"          
+    
+    CampaignEventTrigger:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        campaign:
+          $ref: "#/components/schemas/Campaign"
+        metaData:
+          type: string
+        eventType:
+          $ref: "#/components/schemas/EventType"
+
+    EventType:
+      tye: object
+      properties:
+        id:
+          type: string
+        code:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+        application:
+          $ref: "#/components/schemas/Application"
+        eventSubscriptions:
+          $ref: "#/components/schemas/EventSubscription"
+        events:
+          $ref: "#/components/schemas/Event"
+
+    EventSubscription:
+      type: object
+      properties:
+        id:
+          type: string
+        triggerAction:
+          type: string
+          enum:
+            - NEARX
+            - CUSTOM
+            - WEBHOOK
+            - REFINEX_SEND_FEEDBACK
+            - ORDERX_DELIVERY_PROCESSING
+        eventType:
+          $ref: "#/components/schemas/EventType"
+        sync:
+          type: boolean
+        status:
+          type: string
+
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+        sourceEventId:
+          type: string
+        sourceEventTime:
+          type: string
+        sourceName:
+          type: string
+        data:
+          type: json
+        metadata:
+          type: string
+        eventType:
+          $ref: "#/components/schemas/EventType"
+        processedStatus:
+          type: json
+
+    Application:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        auth_key_hooks:
+          type: string
+        platform:
+          type: string
+        organization:
+          $ref: "#/components/schemas/Organization"
+        actions:
+          $ref: "#/components/schemas/Action"
+        apiKeys:
+          $ref: "#/components/schemas/ApiKey"
+
+    ApiKey:
+      type: object
+      properties:
+        id:
+          type: string
+        environment:
+          type: string
+        status:
+          type: string
+        roles:
+          type: array
+          items:
+            $ref: "#/components/schemas/Role"
+        api_key:
+          type: string
+
+    Role:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        tags:
+          type: string
+        policies:
+          type: array
+          items:
+            $ref: "#/components/schemas/Policy"
+        users:
+          type: array
+          items:
+            $ref: "#/components/schemas/User"
+        createdBy:
+          type: string
+        lastModifiedBy:
+          type: string
+        createdTime:
+          type: string
+        lastModifiedTime:
+          type: string
+
+    Policy:
+      type: object
+      properties:
+        id:
+          type: string
+        effect:
+          type: string
+          enum:
+            - ALLOW
+            - DENY
+        resource:
+          type: string
+          enum:
+            - ORGANIZATION
+            - USER
+            - APPLICATION
+            - STORE
+            - ROLE
+            - CATALOG
+            - CATEGORY
+            - PRODUCT
+            - WEBHOOKS
+            - EVENTS
+            - PLACES
+            - CUSTOMER
+            - CUSTOMER_DEVICE
+            - FEEDBACK_CATEGORY
+            - FEEDBACK_FORM
+            - FEEDBACK_RESPONSE
+            - FEEDBACK_QUESTION
+            - FEEDBACK_CHOICE
+            - APIKEY
+            - ACTION
+            - ACTION_DEFNITION
+            - AUDIENCE
+            - BUSINESS_RULE
+            - CAMPAIGN
+            - COMMUNICATION
+            - ENTITY_EXTEND
+            - EVENT
+            - FILE_SYSTEM
+            - MEMBER
+            - METRIC
+            - METRIC_FILTER
+            - POLICY
+            - RULE
+            - SEGMENT
+            - SESSION
+            - WORKFLOW
+            - REPORT_CONFIG
+            - REPORTS
+            - FILE
+            - CUSTOMER_FEEDBACK
+            - TAXTYPE
+            - STOREFORMAT
+            - TAG
+            - COLLECTION
+            - CHANNEL
+            - CHARGETYPE
+            - PARTNER
+            - DELIVERY
+            - PAYMENT
+            - STAFF
+            - BANK_ACCOUNT
+            - ORDER
+            - LEGAL_INFO
+            - USER_PASSWORD_UPDATE
+            - DISCOUNT_TYPE
+            - MENU_TIMING
+            - COLLECTIONS
+            - LOYALTY_PROGRAM
+            - REFINEX_CONSOLE
+            - DOWNLOAD_EVENTS
+            - DOWNLOAD_CUSTOMERS
+            - SETTINGS_GLOBAL
+            - SETTINGS_NEARX
+            - UPLOAD_PLACES
+            - ACCEPT_ORDER
+            - REJECT_ORDER
+            - DOWNLOAD_REPORTS
+        permission:
+          type: string
+          enum:
+            - VIEW
+            - MODIFY
+            - CREATE
+            - READ
+            - UPDATE
+            - DELETE
+            - LIST
+            - SEARCH
+            - EXECUTE
+        type:
+          type: string
+          enum:
+            - UI
+            - ENTITY
+        accessLevel:
+          type: string
+          enum:
+            - OWN
+            - ALL
+    
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+
+    Action:
+      type: object
+      properties:
+        id:
+          type: string
+        actionDefinition:
+          $ref: "#/components/schemas/ActionDefinition"
+        organization:
+          $ref: "#/components/schemas/Organization"
+        request:
+          type: json
+        response:
+          type: json
+        status:
+          type: string
+    
+    ActionDefinition:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        organization:
+          $ref: "#/components/schemas/Organization"
+        configuration:
+          type: json
+        code:
+          type: string
+        inputSchema:
+          type: string
+        outputSchema:
+          type: json
+        status:
+          type: string
+    
+    CollectionItem:
+      type: object
+      properties:
+        createdBy:
+          type: string
+        lastModifiedBy:
+          type: string
+        createdTime:
+          type: string
+        lastModifiedTime:
+          type: string
+        id:
+          type: string
+        itemId:
+          type: string
+        collections:
+          $ref: "#/components/schemas/Collections"
+
+    CustomerLedger:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            createdTime:
+              type: string
+            lastModifiedTime:
+              type: string
+            id:
+              type: string
+            loyaltyTransaction:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                loyaltyReferenceId:
+                  type: string
+                loyaltyType:
+                  type: string
+                status:
+                  type: string
+                data:
+                  type: string
+                pointsBlocked:
+                  type: number
+                pointsIssued:
+                  type: number
+                pointsRedeemed:
+                  type: number
+                customerLoyalty:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    points:
+                      type: number
+                    pointsBlocked:
+                      type: number
+                    customer:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        firstName:
+                          type: string
+                        lastName:
+                          type: string
+                        email:
+                          type: string
+                        phoneNumber:
+                          type: string
+                        gender:
+                          type: string
+                        dateOfBirth:
+                          type: string
+                        externalCustomerId:
+                          type: string
+                        customerIdentifier:
+                          type: string
+                        organization:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name: 
+                              type: string
+                            addressLine1: 
+                              type: string
+                            addressLine2:  
+                              type: string
+                            city:  
+                              type: string
+                            state:  
+                              type: string
+                            pinCode:  
+                              type: string
+                            country:  
+                              type: string
+                            externalOrganizationId:  
+                              type: string
+                            code:  
+                              type: string
+                            status:  
+                              type: string
+                            phoneNumber:  
+                              type: string
+                            email:  
+                              type: string
+                            website:  
+                              type: string
+                            extend:  
+                              type: string
+                            organizationType: 
+                              type: string
+                            webhooks:
+                              type: object
+                              properties:
+                                id: 
+                                  type: string
+                                name:  
+                                  type: string
+                                organization:  
+                                  type: string
+                                event:  
+                                  type: string
+                                url:  
+                                  type: string
+                                headers:  
+                                  type: string
+                                method:  
+                                  type: string
+                                enabled:  
+                                  type: boolean
+                                status:  
+                                  type: string
+                                webhookType:  
+                                  type: string
+                            applications:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:  
+                                    type: string
+                                  name:  
+                                    type: string
+                                  description:  
+                                    type: string
+                                  auth_key_hooks:  
+                                    type: string
+                                  platform:  
+                                    type: string
+                                  organization:  
+                                    type: string
+                                  actions:
+                                    type: array
+                                    items:
+                                      properties:
+                                        id:  
+                                          type: string
+                                        organization:
+                                          type: string
+                                        request:
+                                          type: string
+                                        response:
+                                          type: string
+                                        status:
+                                          type: string
+                                        actionDefinition:
+                                          type: object
+                                          properties:
+                                            id:
+                                              type: string
+                                            name:
+                                              type: string
+                                            type:
+                                              type: string
+                                            organization:
+                                              type: string
+                                            configuration:
+                                              type: string
+                                            code:
+                                              type: string
+                                            inputSchema:
+                                              type: string
+                                            outputSchema:
+                                              type: string
+                                            status:
+                                              type: string
+                                  apiKeys:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: string
+                                      environment:
+                                        type: string
+                                      status:
+                                        type: string
+                                      api_key:
+                                        type: string
+                                      roles:
+                                        type: array
+                                        items:
+                                          properties:
+                                            id:
+                                              type: string
+                                            name:
+                                              type: string
+                                            description:
+                                              type: string
+                                            createdBy:
+                                              type: string
+                                            lastModifiedBy:
+                                              type: string
+                                            createdTime:
+                                              type: string
+                                            lastModifiedTime:
+                                              type: string
+                                            tags:
+                                              type: array
+                                              items:
+                                                properties:
+                                                  type: string
+                                            policies:
+                                              type: array
+                                              items:
+                                                properties:
+                                                  id:
+                                                    type: string
+                                                  effect:
+                                                    type: string
+                                                  resource:
+                                                    type: string
+                                                  permission:
+                                                    type: string
+                                                  type:
+                                                    type: string
+                                                  accessLevel:
+                                                    type: string
+                                            users:
+                                              type: array
+                                              items:
+                                                properties:
+                                                  id:
+                                                    type: string
+                            parent:
+                              type: string
+                            children:
+                              type: array
+                              items:
+                                properties:
+                                  id:
+                                    type: string
+                            store:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                name: 
+                                  type: string
+                                STATUS:
+                                  type: string
+                                addressLine1: 
+                                  type: string
+                                addressLine2: 
+                                  type: string
+                                city: 
+                                  type: string
+                                state: 
+                                  type: string
+                                pinCode: 
+                                  type: string
+                                country: 
+                                  type: string
+                                externalStoreId: 
+                                  type: string
+                                code: 
+                                  type: string
+                                extend: 
+                                  type: string
+                                email: 
+                                  type: string
+                                wifi: 
+                                  type: boolean
+                                geoLocation: 
+                                  type: string
+                                adminLevelId: 
+                                  type: string
+                                storeOrganization: 
+                                  type: string
+                                organization: 
+                                  type: string
+                                storeFormats:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: string
+                                    name: 
+                                      type: string
+                                    description: 
+                                      type: string
+                                    storeFormatCode: 
+                                      type: string
+                                    status: 
+                                      type: string
+                                    organization: 
+                                      type: string
+                                    taxTypes:
+                                      type: object
+                                      properties:
+                                        id:
+                                          type: string
+                                        name: 
+                                          type: string
+                                        taxTypeCode: 
+                                          type: string
+                                        description: 
+                                          type: string
+                                        status: 
+                                          type: string
+                                        organization: 
+                                          type: string
+                                catalog:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: string
+                                    name: 
+                                      type: string
+                                    catalogCode: 
+                                      type: string
+                                    description: 
+                                      type: string
+                                    organization: 
+                                      type: string
+                                    usage:
+                                      type: object
+                                      properties:
+                                        id:
+                                          type: string
+                                        purpose:
+                                          type: string
+                                        categories:
+                                          type: object
+                                          properties:
+                                            id:
+                                              type: string
+                                            name: 
+                                              type: string
+                                            description: 
+                                              type: string
+                                            code: 
+                                              type: string
+                                            extend:
+                                              type: string
+                                            status:
+                                              type: string
+                                            products:
+                                              type: object
+                                              properties:
+                                                id:
+                                                  type: string
+                                                code: 
+                                                  type: string
+                                                name: 
+                                                  type: string
+                                                description: 
+                                                  type: string
+                                                productType: 
+                                                  type: string
+                                                imageUrl: 
+                                                  type: string
+                                                sku: 
+                                                  type: string
+                                                type:
+                                                  type: string
+                                                extend:
+                                                  type: string
+                                                status:
+                                                  type: string
+                                                variants:
+                                                  type: object
+                            users:
+                              type: array
+                              items:
+                                properties:
+                                  id:
+                                    type: string
+                                  email:
+                                    type: string
+                                  userName:
+                                    type: string
+                                  firstName:
+                                    type: string
+                                  lastName:
+                                    type: string
+                                  extend:
+                                    type: string
+                                  status:
+                                    type: string
+                                  members:
+                                    type: object
+                                    properties:
+                                      applicationId:
+                                        type: string
+                                      application:
+                                        type: object
+                                        properties:
+                                          id:
+                                            type: string
+                                          name:
+                                            type: string
+                                          description:
+                                            type: string
+                                          auth_key_hooks:
+                                            type: string
+                                          platform:
+                                            type: string
+                                          organization:
+                                            type: string
+                                      actions:
+                                        type: array
+                                        items:
+                                          properties:
+                                            id:
+                                              type: string
+                                            actionDefinition:
+                                              type: object
+                                              properties:
+                                                id:
+                                                  type: string
+                                                name:
+                                                  type: string
+                                                type:
+                                                  type: string
+                                                organization:
+                                                  type: string
+                                                configuration:
+                                                  type: string
+                                                code:
+                                                  type: string
+                                                inputSchema:
+                                                  type: string
+                                                outputSchema:
+                                                  type: string
+                                                status:
+                                                  type: string
+                                            organization:
+                                              type: string
+                                            request:
+                                              type: string
+                                            response:
+                                              type: string
+                                            status:
+                                              type: string
+                                      apiKeys:
+                                        type: object
+                            walkinProducts:
+                              type: array
+                              items:
+                                properties:
+                                  id:
+                                    type: string
+                                  name:
+                                    type: string
+                                  description:
+                                    type: string
+                                  latest_version:
+                                    type: string
+                                  status:
+                                    type: string
+                            bankAccount:
+                              type: array
+                              items:
+                                properties:
+                                  id:
+                                    type: string
+                                  name:
+                                    type: string
+                                  phone:
+                                    type: string
+                                  email:
+                                    type: string
+                                  accountNumber:
+                                    type: string
+                                  ifscCode:
+                                    type: string
+                                  accountType:
+                                    type: string
+                                  verified:
+                                    type: boolean
+                                  organization:
+                                    type: string
+                                  beneficiaryName:
+                                    type: string
+                            legalDocuments:
+                              type: array
+                              items:
+                                properties:
+                                  id:
+                                    type: string
+                                  organization:
+                                    type: string
+                                  legalDocumentValue:
+                                    type: string
+                                  legalDocumentInfo:
+                                    type: string
+                                  legalDocumentUrl:
+                                    type: string
+                                  legalDocumentType:
+                                    type: string
+                            actions:
+                              type: array
+                        person:
+                          type: object
+                        customerDevices:
+                          type: array
+            loyaltyLedger:
+              $ref: "#/components/schemas/LoyaltyLedger"
+
+    Ledger:
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 1
+        createdBy:
+          type: string
+        lastModifiedBy:
+          type: string
+        createdTime:
+          type: string
+        points:
+          type: number
+        pointsRemaining:
+          type: number
+        ledgerCount:
+          type: number
+        externalCustomerId:
+          type: string
+        dateStart:
+          type: string
+        dateEnd:
+          type: string
+        orderBy:
+          type: string
+        page:
+          type: number
+        itemsPerPage:
+          type: number
+        loyaltyCardCode:
+          type: string
+        loyaltyLedger:
+          $ref: "#/components/schemas/LoyaltyLedger"
+        loyaltyTransaction:
+          $ref: "#/components/schemas/LoyaltyTransaction"
+
+    LoyaltyTransaction:
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 1
+        name:
+          type: string
+        loyaltyReferenceId:
+          type: string
+        status:
+          type: string
+        details:
+          type: object
+        pointsBlocked:
+          type: number
+        pointsIssued:
+          type: number  
+        pointsRedeemed:
+          type: number
+        customerLoyalty:
+          $ref: "#/components/schemas/CustomerLoyalty"
+
+    CustomerLoyalty:
+      type: object
+      properties:
+        id:
+          type: string
+        points:
+          type: number
+        pointsBlocked:
+          type: number
+        customer:
+          $ref: "#/components/schemas/Customer"
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        gender:
+          type: string
+        dateOfBirth:
+          type: string
+        externalCustomerId:
+          type: string
+        customerIdentifier:
+          type: string
+    
+    Organization:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        pinCode:
+          type: string
+        country:
+          type: string
+        externalOrganizationId:
+          type: string
+        code:
+          type: string
+        status:
+          type: string
+        phoneNumber:
+          type: string
+        email:
+          type: string
+        website:
+          type: string
+        extend:
+          type: string
+        organizationType:
+          type: string
+
+    CampaignSchedule:
+      type: object
+      properties:
+        id:
+          type: string
+        campaign:
+          $ref: "#/components/schemas/Campaign"
+        cronExpression:
+          type: string
+        status:
+          type: string
+
+    LoyaltyLedger:
+      type: object
+      properties:
+        id:
+          type: string
+        points:
+          type: number
+        remarks:
+          type: string
+        balanceSnapshot:
+          type: number
+        type:
+          type: string
+        totalAmount:
+          type: number
+        externalStoreId:
+          type: string
+        expiryDate:
+          type: string
+        pointsRemaining:
+          type: number
+        details:
+          type: string
+
+    EarnableBurnablePoints:
+      type: object
+      properties:
+        earnablePoints:
+          type: number
+        burnablePoints:
+          type: number
+        earnableAmount:
+          type: string
+        burnableAmount:
+          type: string
+        overallPoints:
+          type: number
+        overallAmount:
+          type: string
+        loyaltyEnabled:
+          type: boolean
+        earnedPointsExpiryValue:
+          type: string
+        earnedPointsExpiryUnit:
+          type: string
+    
+    GetCustomerLoyalty:
+      type: object
+      properties:
+        createdTime:
+          type: string
+        lastModifiedTime:
+          type: string
+        externalCustomerId:
+          type: string
+        overallPoints:
+          type: number
+        burnablePoints:
+          type: number
+        overallAmount:
+          type: number
+        burnableAmount:
+          type: number
+        pointsBlocked:
+          type: number
+        blockedAmount:
+          type: number
+        loyaltyCardCode:
+          type: string
+        loyaltyEnabled:
+          type: boolean
+
+    ProcessLoyaltyOutput:
+      type: object
+      required: []
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        externalCustomerId:
+          type: string
+        loyaltyReferenceId:
+          type: string
+        earnedPoints:
+          type: number
+          format: float
+        earnedAmount:
+          type: string
+        burnedPoints:
+          type: number
+          format: float
+        burnedAmount:
+          type: string
+        loyaltyCardCode:
+          type: string
+        earnedPointsExpiryValue:
+          type: string
+        earnedPointsExpiryUnit:
+          type: string
+        blockedPoints:
+          type: number
+          format: float
+        
+    Collections:
+      type: object
+      required: []
+      properties:
+        id:
+          description: Unique Collections Id. 
+          type: string
+        name:
+          description: Name of the collections.
+          type: string
+        description:
+          type: string
+        entity:
+          description: Can be PRODUCT/STORE/CUSTOMER 
+          type: stirng
+        status:
+          description: Can be ACTIVE/INACTIVE
+          type: string
+        organization:
+          description: The Organization this collections belongs to.
+          type: string
+        campaign:
+          description: The Campaign this collections belongs to.
+          type: object
+    
+  requestBodies:
+    GetCollectionItems:
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            x-examples:
+              example-1:
+                itemId: "473cc25b-aac9-4d68-a3bf-49290ff05534"
+                collectionsId: "75e827c2-44b5-4869-82c7-12def278f23f"
+            properties:
+              itemId:
+                type: string
+                description: Unique id of an entity. Entity can belong to PRODUCT/STORE/CUSTOMER.
+              collectionsId:
+                type: string
+                description: Unique ID of a collections.
+          examples:
+            Get collections:
+              value:
+                itemId: "473cc25b-aac9-4d68-a3bf-49290ff05534"
+                collectionsId: "75e827c2-44b5-4869-82c7-12def278f23f"
+      description: Gets collection items details for an organization.
+
+    UpdateCollectionsInput:
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            x-examples:
+              example-1:
+                collectionsId: "75e827c2-44b5-4869-82c7-12def278f23f"
+                name: "Test"
+                description: "Test"
+                status: "ACTIVE"
+            properties:
+              collectionsId:
+                type: string
+                description: Unique ID of a collections.
+              name:
+                type: string
+                description: Name given for the collections.
+              description:
+                type: string
+                description: Information regarding the collections.
+              status:
+                type: string
+                enum:
+                  - ACTIVE
+                  - INACTIVE
+            required:
+              - collectionsId
+          examples:
+            Update a collections:
+              value:
+                collectionsId: "75e827c2-44b5-4869-82c7-12def278f23f"
+                name: "RTEST"
+                description: "RTEST"
+                status: "ACTIVE"
+      description: Update collections details.
+
+    CreateCollectionsInput:
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            x-examples:
+              example-1:
+                campaignId: "4"
+                name: "Test"
+                description: "Test"
+                entity: "PRODUCT"
+                status: "ACTIVE"
+            properties:
+              campaignId:
+                type: string
+                description: Unique id for a campaign.
+              name:
+                type: string
+                description: Name given for the collections.
+              description:
+                type: string
+                description: Information regarding the collections.
+              status:
+                type: string
+                enum:
+                  - ACTIVE
+                  - INACTIVE
+              entity:
+                type: string
+                description: Specifies the entity type for which the collections is created.
+                enum:
+                  - PRODUCT
+                  - STORE
+                  - CUSTOMER
+            required:
+              - campaignId
+              - name
+              - entity
+          examples:
+            Create a collections:
+              value:
+                campaignId: "4"
+                name: "RTEST"
+                description: "RTEST"
+                entity: "CUSTOMER"
+                status: "ACTIVE"
+      description: Creates collections for a campaign with specific entity type.
+
+    UpdateCampaignInput:
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            properties:
+              name:
+                type: string
+              description:
+                type: string
+              group:
+                type: string
+              campaignStatus:
+                type: string
+                enum:
+                  - DRAFT
+                  - ACTIVE
+                  - PAUSED
+                  - ENDED
+              priority:
+                type: number
+              startTime:
+                type: string
+              endTime:
+                type: string
+              applicationMethod:
+                type: string
+                enum:
+                  - EXCLUSIVE
+                  - SEQUENTIAL
+                  - ALWAYS
+              loyaltyProgramDetailId:
+                type: string
+              eventTypeId:
+                type: string
+              metaData:
+                type: string
+
+    UpdateCampaignScheduleInput:
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            properties:
+              id:
+                type: string
+              status:
+                type: string
+                enum:
+                  - ACTIVE
+                  - INACTIVE
+              cronExpression:
+                type: string
+
+    UpdateCampaignStatusInput:
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            properties:
+              campaignStatus:
+                type: string
+                enum:
+                  - DRAFT
+                  - ACTIVE
+                  - PAUSED
+                  - ENDED
+
+    RecordEventInput:
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            properties:
+              eventTypeCode:
+                type: string
+              description:
+                type: string
+              data:
+                type: json
+              status:
+                type: string
+                enum:
+                  - ACTIVE
+                  - INACTIVE
+            required:
+              - eventTypeCode
+              - data
+              - status
+
+    UpdateEventInput:
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            properties:
+              id:
+                type: string
+              data:
+                type: json
+
+    CreateEventInput:
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            properties:
+              eventTypeCode:
+                type: string
+                enum:
+                  - PURCHASE
+                  - CUSTOMER_SIGNUP
+                  - CUSTOMER_LEVEL_CHANGE
+                  - REFERRAL_SIGNUP
+                  - REVIEW_SUBMITTED
+              description:
+                type: string
+              data:
+                type: json
+              status:
+                type: string
+                enum:
+                  - ACTIVE
+                  - INACTIVE
+
+    UpdateEventTypeInput:
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            properties:
+              code:
+                type: string
+                enum:
+                  - PURCHASE
+                  - CUSTOMER_SIGNUP
+                  - CUSTOMER_LEVEL_CHANGE
+                  - REFERRAL_SIGNUP
+                  - REVIEW_SUBMITTED
+              description:
+                type: string
+              status:
+                type: string
+                enum: 
+                  - ACTIVE
+                  - INACTIVE
+
+    CreateEventTypeInput:
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            properties:
+              code:
+                type: string
+                enum:
+                  - PURCHASE
+                  - CUSTOMER_SIGNUP
+                  - CUSTOMER_LEVEL_CHANGE
+                  - REFERRAL_SIGNUP
+                  - REVIEW_SUBMITTED
+              description:
+                type: string
+            required:
+              - code
+
+    CreateCampaignInput:
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            properties:
+              name:
+                type: string
+              description:
+                type: string
+              campaignType:
+                type: string
+                enum:
+                  - MESSAGING
+                  - LOYALTY
+                  - REFERRAL
+                  - COUPON
+                  - DISCOUNT
+              priority:
+                type: number
+              campaignTriggerType:
+                type: string
+                enum:
+                  - SCHEDULED
+                  - EVENT
+              campaignStatus:
+                type: string
+                enum:
+                  - DRAFT
+                  - ACTIVE
+                  - PAUSED
+                  - ENDED
+              isCampaignControlEnabled:
+                type: boolean
+              campaignControlPercent:
+                type: number
+              isGlobalControlEnabled:
+                type: boolean
+              startTime:
+                type: string
+              endTime:
+                type: string
+              organization_id:
+                type: string
+                required: true
+              application_id:
+                type: string
+              applicationMethod:
+                type: string
+                enum:
+                  - EXCLUSIVE
+                  - SEQUENTIAL
+                  - ALWAYS
+              loyaltyTotals:
+                type: json
+              couponTotals:
+                type: json
+              referralTotals:
+                type: json
+              discountTotals:
+                type: json
+              group:
+                type: string
+              extend:
+                type: json
+              loyaltyProgramDetailId:
+                type: string
+              metaData:
+                type: string
+              eventTypeId:
+                type: string
+              cronExpression:
+                type: string
+              campaignScheduleName:
+                type: string
+                enum:
+                  - BIRTHDAY_CAMPAIGN
+            required:
+              - name
+              - campaignType
+              - campaignTriggerType
+              - campaignStatus
+              - startTime
+              - endTime
+              - applicationMethod
+              - organization_id
+
+    GetCustomerLedgerInput:
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            x-examples:
+              example-1:
+                externalCustomerId: "9440451042"
+            properties:
+              externalCustomerId:
+                type: string
+                description: Unique customer id maintained by external system.
+              cardCode:
+                type: string
+                description: Unique code to represent a loyatly card.
+              dateStart:
+                type: string
+                description: Start date of the date range for which results should be returned.
+              dateEnd:
+                type: string
+                description: End date of the date range for which results should be returned.
+              page:
+                type: integer
+                description: Page for which results should be returned.
+              itemsPerPage:
+                type: integer
+                description: No of items to be returned as part of the page result.
+              orderBy:
+                type: string
+                description: Specifies the sorting order.
+                enum:
+                  - ASC
+                  - DESC
+            required:
+              - externalCustomerId
+          examples:
+            Search for customer ledger:
+              value:
+                externalCustomerId: "9440451042"
+                page: 1
+                itemsPerPage: 10
+      description: Searching for customer ledger
+    
+    EarnableBurnablePointsInput:
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            x-examples:
+              example-1:
+                externalCustomerId: "9440451042"
+                loyaltyType: string
+                data: object
+            properties:
+              externalCustomerId:
+                type: string
+              loyaltyType:
+                type: string
+              data:
+                type: object
+            required:
+              - data
+          examples:
+            Earnable Burnable Points Query:
+              value:
+                externalCustomerId: "9440451042"
+                loyaltyType: string
+                data:
+                  burnFromWallet: true
+                  order: 
+                    externalStoreId: string
+                    externalOrderId: 0
+                    totalAmount: 0
+                    orderType: string
+                    fulfillmentDate: []
+                    couponCode: string
+                    orderDate: []
+                    orderChannel: string
+                    products: [
+                      {}
+                    ]
+                    notes: [
+                      {}
+                    ]
+                  loyalty: 
+                    loyaltyProgramCode: string
+
+    GetCustomerLoyaltyInput:
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            x-examples:
+              example-1:
+                storeId: string
+                externalCustomerId: "9440451042"
+            properties:
+              storeId:
+                type: string
+              externalCustomerId:
+                type: string
+            required:
+              - externalCustomerId
+          examples:
+            Get customer loyalty with valid inputs:
+              value:
+                storeId: string
+                externalCustomerId: "9440451042"
+
+    ProcessLoyaltyRedemptionInput:
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            required:
+              - data
+            properties:
+              externalCustomerId:
+                type: string
+                description: Unique customer id maintained by external system.
+              loyaltyReferenceId:
+                type: string
+                description: ' Unique reference id against which loyalty points earn/burn should be recorded.<br> This is a unique reference maintained by an external system.'
+              loyaltyType:
+                type: string
+                description: Type of loyalty.
+              pointsToRedeem:
+                type: number
+                format: float
+                description: Maximum points that can be redeemed in a transaction.
+              data:
+                type: object
+                description: Transaction data needed to determine burn and earn points.
+                properties:
+                  burnFromWallet:
+                    type: boolean
+                  order:
+                    type: object
+                    properties:
+                      externalStoreId:
+                        type: string
+                      externalOrderId:
+                          type: integer
+                      totalAmount:
+                        type: integer
+                      orderType:
+                        type: string
+                      fulfillmentDate:
+                        type: array
+                        items:
+                          type: integer
+                        default: []
+                      couponCode:
+                        type: string
+                      orderDate:
+                        type: array
+                        items:
+                          type: integer
+                        default: []
+                      orderChannel:
+                        type: string
+                      products:
+                        type: array
+                        items:
+                          type: object
+                      notes:
+                        type: array
+                        items:
+                          type: object
+                  loyalty:
+                    type: object
+                    properties:
+                      loyaltyProgramCode:
+                        type: string
+    
+    
+  responses:
+    CollectionItem:
+      description: ""
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  collectionItem:
+                    - id: ""
+                      itemId: ""
+                      collections: {}
+            properties:
+              collectionItem:
+                  $ref: "#/components/schemas/CollectionItem"
+
+    CollectionItemsResponse:
+      description: ""
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  collectionItem:
+                    - id: ""
+                      itemId: ""
+                      collections: {}
+            properties:
+              collectionItems:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CollectionItem"
+
+    RemoveCollectionItemResponse:
+      description: ""
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  collectionItem:
+                    - id: ""
+                      itemId: ""
+                      collections: {}
+            properties:
+              collectionItem:
+                $ref: "#/components/schemas/CollectionItem"
+
+    CreateCollectionsResponse:
+      description: ""
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  collections:
+                    - id: ""
+                      name: ""
+                      description: ""
+                      createdBy: ""
+                      lastModifiedBy: ""
+                      createdTime: ""
+                      lastModifiedTime: ""
+                      entity: ""
+                      status: ""
+            properties:
+              collections:
+                $ref: "#/components/schemas/Collections"
+    
+    CampaignScheduleResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              campaignSchedule:
+                $ref: "#/components/schemas/CampaignSchedule"
+
+    RecordEventResponse:
+      content:
+        application/json:
+          schema:
+            properties:
+              eventType:
+                $ref: "#/components/schemas/EventType"
+              campaigns:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Campaign"
+
+    GetEventsResponse:
+      description: ""
+      content:
+        application/json:
+          schema:
+            description: ""
+            properties:
+              event:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Event"
+
+    EventResponse:
+      description: ""
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            properties:
+              event:
+                $ref: "#/components/schemas/Event"
+
+    EventTypeResponse:
+      description: ""
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            properties:
+              eventType:
+                $ref: "#/components/schemas/EventType"
+
+    CampaignResponse:
+      description: ""
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            properties:
+              campaign:
+                $ref: "#/components/schemas/Campaign"
+
+    GetCustomerLedgerResponse:
+      description: ""
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  ledger:
+                    - id: ""
+                      loyaltyLedger: ""
+                      loyaltyTransaction:
+                        customerLoyalty: ""
+            properties:
+              data:
+                type: object
+                properties:
+                  ledger:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      $ref: "#/components/schemas/CustomerLedger"
+                  ledgerCount:
+                    type: string
+                  externalCustomerId:
+                    type: string
+                  dateStart:
+                    type: string
+                  dateEnd:
+                    type: string
+                  page:
+                    type: string
+                  itemsPerPage:
+                    type: string
+                  orderBy:
+                    type: string
+                  loyaltyCardCode:
+                    type: string
+          examples: {}
+
+    EarnableBurnablePointsResponse:
+      description: ""
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  earnableBurnablePoints:
+                    - id: ""
+            properties:
+              data:
+                type: object
+                properties:
+                  earnableBurnablePoints:
+                    items:
+                      $ref: "#/components/schemas/EarnableBurnablePoints"
+          examples: {}
+    
+    GetCustomerLoyaltyResponse:
+      description: ""
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  getCustomerLoyalty:
+                    - id: ""
+            properties:
+              data:
+                type: object
+                properties:
+                  getCustomerLoyalty:
+                    items:
+                      $ref: "#/components/schemas/GetCustomerLoyalty"
+          examples: {}
+    
+    ProcessLoyaltyRedemptionResponse:
+      description: ""
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            x-examples:
+              example-1:
+                data:
+                  processLoyaltyRedemption:
+                  - id: ""
+            properties:
+              data:
+                type: object
+                properties:
+                  processLoyaltyRedemption:
+                    items:
+                      $ref: '#/components/schemas/ProcessLoyaltyOutput'
+          examples: {}
+
+    GetCollectionsByOrganizationIdOutput:
+      type: object
+      required: []
+      properties:
+        data:
+          description: List of collections.
+          type: array
+          items:
+            $ref: '#/components/schemas/Collections'
+        count:
+          description: Number of collections.
+          type: integer
+          format: int32
+
+    GetCollectionsByCampaignIdResponse:
+      description: ""
+      content:
+        application/json:
+          schema:
+            description: ""
+            type: object
+            properties:
+            data: 
+              type: object
+              properties:
+                getCollectionsByCampaignId:
+                  items: 
+                    $ref: "#/components/responses/GetCollectionsByOrganizationIdOutput"
+
+    DeleteCollectionResponse:
+      description: ""
+      type: object
+      properties:
+        countBeforeDelete:
+          type: integer
+        data:
+          description: List of collections.
+          type: array
+          items:
+            $ref: '#/components/schemas/Collections'
+        countAfterDelete:
+          type: integer
+
+      
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      description: API Key (JWT).
